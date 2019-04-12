@@ -17,16 +17,17 @@ class PostController extends Controller
             'content' => 'required|min:10',
         ]);
 
-        $post->create([
+        $post = $post->create([
             'user_id' => Auth::user()->id,
             'content' => $request->content,
         ]);
-
+ 
+         //Response
         $response = fractal()
             ->item($post)
             ->transformWith(new PostTransformer)
             ->toArray();
 
-        return response()->json('$response', 201);
+        return response()->json($response, 201);
     }
 }
